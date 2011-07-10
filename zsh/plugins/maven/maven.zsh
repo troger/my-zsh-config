@@ -1,5 +1,4 @@
-alias mvn='~/Dropbox/bin/mvnc'
-alias mvn2='/usr/bin/mvn'
+alias mvn2='/usr/share/java/maven-2.2.1/bin/mvn'
 alias mvn='~/Dropbox/bin/mvnc'
 alias mvngwt='/usr/bin/mvn'
 alias mvnnotest='mvn -Dmaven.test.skip=true'

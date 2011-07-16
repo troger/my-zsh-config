@@ -1,3 +1,7 @@
+# rw-r--r-- for files
+# rwxr-xr-x for folders
+umask 022
+
 alias grep='grep --color=auto'
 alias ls='ls -GhF'
 

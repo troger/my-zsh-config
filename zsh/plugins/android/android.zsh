@@ -1,2 +1,2 @@
-export ANDROID_HOME="/usr/local/Cellar/android-sdk/r10"
+export ANDROID_HOME="/usr/local/Cellar/android-sdk/r12"
 

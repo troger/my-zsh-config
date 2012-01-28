@@ -22,3 +22,5 @@ export PATH="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin:$PATH"
 # Dropbox
 export PATH="/Users/troger/Dropbox/bin:$PATH"
 
+# Play
+export PATH="/Users/troger/code/Play20:$PATH"

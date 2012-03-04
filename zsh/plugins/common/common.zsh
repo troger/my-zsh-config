@@ -21,10 +21,10 @@ alias tailf='tail -f'
 alias myip="ifconfig | grep 192.168 || ifconfig | grep 10.32"
 alias psg="ps ax | grep -i"
 
-export EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"'
+#export EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"'
+export EDITOR='subl -w'
 
 # functions
 ff () {
   find . -iname $1 -print
 }
-

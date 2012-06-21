@@ -9,6 +9,7 @@ export PATH="/opt/play:$PATH"
 export PATH="/Users/troger/.gem/ruby/1.8/bin/:$PATH"
 export PATH="/Users/troger/.gem/jruby/1.8/bin:$PATH"
 export PATH="/usr/local/Cellar/jruby/1.6.0/jruby/bin/:$PATH"
+export PATH="/usr/local/Cellar/ruby/1.9.3-p194/bin:$PATH"
 
 # Ruby gems
 export PATH="/usr/local/Cellar/ruby/1.9.2-p0/bin:$PATH"
@@ -24,3 +25,9 @@ export PATH="/Users/troger/Dropbox/bin:$PATH"
 
 # Play
 export PATH="/opt/play:$PATH"
+
+# Ruby
+export PATH="/usr/local/Cellar/ruby/1.9.3-p125/bin:$PATH"
+
+# RVM
+export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting

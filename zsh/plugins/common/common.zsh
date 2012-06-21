@@ -1,3 +1,5 @@
+export LC_CTYPE="en_US.UTF-8"
+
 # rw-r--r-- for files
 # rwxr-xr-x for folders
 umask 022

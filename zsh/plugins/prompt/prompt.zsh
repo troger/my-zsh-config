@@ -7,7 +7,7 @@ colors
 
 # set some colors
 for COLOR in MAGENTA BLUE RED GREEN YELLOW WHITE BLACK CYAN; do
-    eval PR_$COLOR='%{$fg_no_bold[${(L)COLOR}]%}'  
+    eval PR_$COLOR='%{$fg_no_bold[${(L)COLOR}]%}'
     eval PR_BRIGHT_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
 done
 PR_RESET="%{${reset_color}%}";
@@ -19,7 +19,7 @@ zstyle ':vcs_info:*' stagedstr '%F{green}S%f'
 zstyle ':vcs_info:*' unstagedstr '%F{yellow}U%f'
 
 
-zstyle ':vcs_info:git*' formats ' %F{blue}[%b %c%u%m%F{blue}]%f'
+zstyle ':vcs_info:git*' formats ' %F{magenta}[%b %c%u%m%F{magenta}]%f'
 zstyle ':vcs_info:git*' actionformats ' %F{blue}[%F{red}(%a)%F{blue}%b %c%u%m%F{blue}]%f'
 
 zstyle ':vcs_info:git*+set-message:*' hooks git-st git-stash git-untracked
@@ -27,7 +27,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-st git-stash git-untracked
 ### git: Show marker (T) if there are untracked files in repository
 # Make sure you have added staged to your 'formats': %c
 function +vi-git-untracked(){
-    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+    if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
         git status --porcelain | grep '??' &> /dev/null ; then
         # This will show the marker if there are any untracked files in repo.
         # If instead you want to show the marker only if there are untracked
@@ -43,15 +43,15 @@ function +vi-git-st() {
     local -a gitstatus
 
     # Are we on a remote-tracking branch?
-    remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
+    remote=${$(command git rev-parse --verify ${hook_com[branch]}@{upstream} \
         --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
 
     if [[ -n ${remote} ]] ; then
-        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+        ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
         regexp-replace ahead ' ' ''
         (( $ahead )) && gitstatus+=( "%F{green}+${ahead}%f" )
 
-        behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+        behind=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
         regexp-replace behind ' ' ''
         (( $behind )) && gitstatus+=( "%F{red}-${behind}%f" )
         if [ "${gitstatus}" ] ; then ;
@@ -68,7 +68,7 @@ function +vi-git-stash() {
     local -a stashes
 
     if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
-        stashes=$(git stash list 2>/dev/null | wc -l)
+        stashes=$(command git stash list 2>/dev/null | wc -l)
         regexp-replace stashes ' ' ''
         hook_com[misc]+=" (${stashes} stashed)"
     fi

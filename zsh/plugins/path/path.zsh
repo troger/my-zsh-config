@@ -6,8 +6,8 @@ export PATH="$HOME/bin:$PATH"
 export PATH="/opt/play:$PATH"
 
 # gems
-export PATH="/Users/troger/.gem/ruby/1.8/bin/:$PATH"
-export PATH="/Users/troger/.gem/jruby/1.8/bin:$PATH"
+export PATH="$HOME/.gem/ruby/1.8/bin/:$PATH"
+export PATH="$HOME/.gem/jruby/1.8/bin:$PATH"
 export PATH="/usr/local/Cellar/jruby/1.6.0/jruby/bin/:$PATH"
 export PATH="/usr/local/Cellar/ruby/1.9.3-p194/bin:$PATH"
 
@@ -17,11 +17,11 @@ export PATH="/usr/local/Cellar/ruby/1.9.2-p0/bin:$PATH"
 # Wireshark
 export PATH="/opt/wireshark/bin:$PATH"
 
-# Sublime Text 2
-export PATH="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin:$PATH"
+# Sublime Text
+export PATH="/Applications/Sublime Text 3.app/Contents/SharedSupport/bin:$PATH"
 
 # Dropbox
-export PATH="/Users/troger/Dropbox/bin:$PATH"
+export PATH="$HOME/Dropbox/bin:$PATH"
 
 # Play
 export PATH="/opt/play:$PATH"
@@ -31,3 +31,15 @@ export PATH="/usr/local/Cellar/ruby/1.9.3-p125/bin:$PATH"
 
 # RVM
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
+
+# Heroku
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# Node.js
+export PATH="/usr/local/share/npm/bin:$PATH"
+
+# Android SDK
+export ANDROID_SDK_ROOT="/usr/local/Cellar/android-sdk/r22.2"
+
+# Maven
+#export PATH="/opt/apache-maven-3.0.5/bin:$PATH"

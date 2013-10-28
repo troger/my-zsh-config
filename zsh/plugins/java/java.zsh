@@ -1,6 +1,8 @@
 # Script by David Blevins (http://blog.dblevins.com/)
 # See http://docs.codehaus.org/display/ninja/setjdk
 
+export JAVA_HOME=`/usr/libexec/java_home`
+
 defaultjdk() {
     local vmdir=/System/Library/Frameworks/JavaVM.framework/Versions
     local ver=${1?Usage: defaultjdk <version>}

@@ -1,5 +1,5 @@
-export HISTORY=1000
-export SAVEHIST=1000
+export HISTORY=10000
+export SAVEHIST=10000
 export HISTFILE=$HOME/.zsh/history
 # options
 setopt inc_append_history

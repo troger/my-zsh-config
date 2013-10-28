@@ -36,7 +36,7 @@ nxfullbuild() {
   gfspull
   cd ..
 
-  mcit -Paddons $@
+  mvn2 clean install -DskipTests=true -Paddons $@
 }
 
 nuxeoctl() {

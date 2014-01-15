@@ -18,7 +18,7 @@ export PATH="/usr/local/Cellar/ruby/1.9.2-p0/bin:$PATH"
 export PATH="/opt/wireshark/bin:$PATH"
 
 # Sublime Text
-export PATH="/Applications/Sublime Text 3.app/Contents/SharedSupport/bin:$PATH"
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 
 # Dropbox
 export PATH="$HOME/Dropbox/bin:$PATH"

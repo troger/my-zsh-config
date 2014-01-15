@@ -2,9 +2,8 @@ NUXEO_HOME='/opt/nuxeo'
 
 alias cpjar='cp -r `find . -path ./*-distribution* -prune -o \( -iname "*SNAPSHOT.jar" -print \) `'
 alias cpweb='cp -r `find . -path "*/src/main/resources/web/nuxeo.war" -exec echo {}/ \;`'
-alias ooheadless='/Applications/OpenOffice.org.app/Contents/MacOS/soffice.bin -headless -nofirststartwizard -accept="socket,host=localhost,port=8100;urp;StarOffice.Service"'
 
-compctl -k "(gui nogui help start stop restart configure wizard console status startbg restartbg pack mp-list mp-init mp-add mp-install mp-uninstall mp-remove mp-reset -dc)" "*nuxeoctl"
+compctl -k "(gui nogui help start stop restart configure wizard console status startbg restartbg pack mp-purge mp-list mp-init mp-add mp-install mp-uninstall mp-remove mp-reset -dc)" "*nuxeoctl"
 
 gitf() {
   for dir in . nuxeo-*; do
@@ -53,7 +52,8 @@ nuxeoctl() {
   perl -p -i -e "s,^#?(nuxeo.data.dir=).*$,\1/opt/nxdata,g" $NUXEOCONF
 
   # PostgreSQL
-  perl -p -i -e "s/^#?(nuxeo.templates=.*)$/\1,sdk,postgresql/g" $NUXEOCONF
+  perl -p -i -e "s/^#?(nuxeo.templates=((?!postgresql,|,postgresql|postgresql).)*)$/\1,postgresql/g" $NUXEOCONF
+  perl -p -i -e "s/^#?(nuxeo.templates=((?!sdk,|,sdk|sdk).)*)$/\1,sdk/g" $NUXEOCONF
   perl -p -i -e "s/^#?(nuxeo.db.name=).*$/\1nuxeo/g" $NUXEOCONF
   perl -p -i -e "s/^#?(nuxeo.db.user=).*$/\1nuxeo/g" $NUXEOCONF
   perl -p -i -e "s/^#?(nuxeo.db.password=).*$/\1nuxeo/g" $NUXEOCONF

@@ -1,4 +1,4 @@
-alias mvn2='/opt/apache-maven-2.2.1/bin/mvn'
+alias mvn2='/usr/local/Cellar/maven2/2.2.1/bin/mvn'
 alias mvngwt='/usr/bin/mvn'
 alias mvnnotest='mvn -DskipTests=true'
 alias mci='mvn clean install'

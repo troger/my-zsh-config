@@ -36,10 +36,13 @@ export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # Node.js
-export PATH="/usr/local/share/npm/bin:$PATH"
+#export PATH="/usr/local/share/npm/bin:$PATH"
 
 # Android SDK
 export ANDROID_SDK_ROOT="/usr/local/Cellar/android-sdk/r22.2"
+
+# Go
+export PATH=$PATH:/usr/local/Cellar/go/1.2/libexec/bin:$GOPATH/bin
 
 # Maven
 #export PATH="/opt/apache-maven-3.0.5/bin:$PATH"

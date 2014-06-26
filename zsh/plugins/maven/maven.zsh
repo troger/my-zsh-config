@@ -1,4 +1,5 @@
 alias mvn2='/usr/local/Cellar/maven2/2.2.1/bin/mvn'
+alias mvn3='/usr/local/Cellar/maven30/3.0.5/bin/mvn'
 alias mvngwt='/usr/bin/mvn'
 alias mvnnotest='mvn -DskipTests=true'
 alias mci='mvn clean install'

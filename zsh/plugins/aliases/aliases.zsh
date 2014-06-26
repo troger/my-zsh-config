@@ -22,3 +22,5 @@ alias myip="ifconfig | grep 192.168 || ifconfig | grep 10.32"
 alias psg="ps ax | grep -i"
 
 alias sb='subl'
+
+alias gradlew="./gradlew"

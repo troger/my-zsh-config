@@ -13,7 +13,7 @@ alias mvni='mvn idea:clean idea:idea -DdownloadSources=true -DdownloadJavadocs=t
 alias mvnio='mvni -o'
 alias mvntd='mvn clean test -Dmaven.surefire.debug'
 
-export MAVEN_OPTS="-Xms2048m -Xmx4096m -XX:MaxPermSize=512m"
+export MAVEN_OPTS="-Xms2048m -Xmx4096m"
 
 export ANT_OPTS="-Xms256m -Xmx1024m"
 

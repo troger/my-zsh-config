@@ -6,7 +6,7 @@ alias cpweb='cp -r `find . -path "*/src/main/resources/web/nuxeo.war" -exec echo
 compctl -k "(gui nogui help start stop restart configure wizard console status startbg restartbg pack mp-purge mp-list mp-init mp-add mp-install mp-uninstall mp-remove mp-reset -dc)" "*nuxeoctl"
 
 gitf() {
-  for dir in . nuxeo-*; do
+  for dir in . *; do
     if [ -d "$dir"/.git ]; then
       echo "[$dir]"
       (cd "$dir" ; git "$@")

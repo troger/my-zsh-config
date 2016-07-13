@@ -26,5 +26,6 @@ mvn() {
   -e 's_\(\[WARNING\].*\)_[1;33m\1[0m_g' \
   -e 's_\(\[ERROR\].*\)_[1;31m\1[0m_g' \
   -e 's_\(\[INFO] BUILD SUCCESS\)_[1;32m\1[0m_g' \
-  -e 's_\(\[INFO] BUILD SUCCESSFUL\)_[1;32m\1[0m_g'
+  -e 's_\(SUCCESS\)_[1;32m\1[0m_g' \
+  -e 's_\(\[INFO] Building.*\)_[1;32m\1[0m_g'
 }

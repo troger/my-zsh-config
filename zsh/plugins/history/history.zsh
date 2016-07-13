@@ -1,4 +1,5 @@
 export HISTORY=10000
+export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE=$HOME/.zsh/history
 # options

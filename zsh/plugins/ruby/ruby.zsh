@@ -1,1 +1,1 @@
-source /Users/tom/.rvm/scripts/rvm
+# source /Users/tom/.rvm/scripts/rvm

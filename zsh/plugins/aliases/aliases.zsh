@@ -18,7 +18,7 @@ alias rd='rmdir'
 alias cd..='cd ..'
 alias tailf='tail -f'
 
-alias myip="ifconfig | grep 192.168 || ifconfig | grep 10.32"
+alias myip="ifconfig | grep 192.168 || ifconfig | grep 10.32 || ifconfig | grep 10.213"
 alias psg="ps ax | grep -i"
 
 alias sb='subl'

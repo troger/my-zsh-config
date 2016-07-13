@@ -1,4 +1,5 @@
 NUXEO_HOME='/opt/nuxeo'
+export TEST_CLID_PATH='/opt/instance.clid'
 
 alias cpjar='cp -r `find . -path ./*-distribution* -prune -o \( -iname "*SNAPSHOT.jar" -print \) `'
 alias cpweb='cp -r `find . -path "*/src/main/resources/web/nuxeo.war" -exec echo {}/ \;`'
@@ -64,7 +65,7 @@ nuxeoctl() {
   #perl -p -i -e "s/^#?(mail.transport.host=).*$/\1localhost/g" bin/nuxeo.conf
   perl -p -i -e "s/^#?(mail.transport.host=).*$/\1mail.in.nuxeo.com/g" $NUXEOCONF
   perl -p -i -e "s/^#?(mail.transport.port=).*$/\1\ 25/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(mail.from=).*$/\1whatyouwant\@whereyouwant.com/g" $NUXEOCONF
+  perl -p -i -e "s/^#?(mail.from=).*$/\1devnull\@nuxeo.com/g" $NUXEOCONF
 
   # Wizard
   perl -p -i -e "s/^#?(nuxeo.wizard.done=).*$/\1true/g" $NUXEOCONF

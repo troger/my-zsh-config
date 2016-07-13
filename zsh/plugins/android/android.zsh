@@ -1,2 +1,1 @@
-export ANDROID_HOME="/usr/local/Cellar/android-sdk/22.6.2/"
-
+export ANDROID_HOME="/usr/local/Cellar/android-sdk/"

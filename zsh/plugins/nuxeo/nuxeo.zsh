@@ -109,3 +109,5 @@ nxrestart() {
 nxweb() {
   cpweb $NUXEO_HOME/nxserver/nuxeo.war/
 }
+
+alias nx='cd /opt/nuxeo'

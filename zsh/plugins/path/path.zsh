@@ -50,3 +50,9 @@ export PATH=$PATH:/usr/local/Cellar/go/1.2/libexec/bin:$GOPATH/bin
 # nvm
 export NVM_DIR=~/.nvm
 . $(brew --prefix nvm)/nvm.sh
+
+# Libreoffice
+export PATH=$PATH:/Applications/LibreOffice.app/Contents/MacOS
+
+# yarn
+export PATH="$PATH:`yarn global bin`"

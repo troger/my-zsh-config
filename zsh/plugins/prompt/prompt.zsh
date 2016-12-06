@@ -46,21 +46,23 @@ function +vi-git-st() {
     remote=${$(command git rev-parse --verify ${hook_com[branch]}@{upstream} \
         --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
 
-    if [[ -n ${remote} ]] ; then
-        ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-        regexp-replace ahead ' ' ''
-        (( $ahead )) && gitstatus+=( "%F{green}+${ahead}%f" )
+    hook_com[misc]+=" %f(${remote})"
 
-        behind=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-        regexp-replace behind ' ' ''
-        (( $behind )) && gitstatus+=( "%F{red}-${behind}%f" )
-        if [ "${gitstatus}" ] ; then ;
-          hook_com[misc]+=" %f(${remote} ${(j:/:)gitstatus})" ;
-        else ;
-          hook_com[misc]+=" %f(${remote})"
-        fi
+    # if [[ -n ${remote} ]] ; then
+    #     ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+    #     regexp-replace ahead ' ' ''
+    #     (( $ahead )) && gitstatus+=( "%F{green}+${ahead}%f" )
 
-    fi
+    #     behind=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+    #     regexp-replace behind ' ' ''
+    #     (( $behind )) && gitstatus+=( "%F{red}-${behind}%f" )
+    #     if [ "${gitstatus}" ] ; then ;
+    #       hook_com[misc]+=" %f(${remote} ${(j:/:)gitstatus})" ;
+    #     else ;
+    #       hook_com[misc]+=" %f(${remote})"
+    #     fi
+
+    #fi
 }
 
 # Show count of stashed changes

@@ -1,4 +1,3 @@
-NUXEO_HOME='/opt/nuxeo'
 export TEST_CLID_PATH='/opt/instance.clid'
 
 alias cpjar='cp -r `find . -path ./*-distribution* -prune -o \( -iname "*SNAPSHOT.jar" -print \) `'
@@ -36,50 +35,27 @@ nxfullbuild() {
   gfspull
   cd ..
 
-  mvn2 clean install -DskipTests=true -Paddons $@
+  mvn clean install -DskipTests=true -Paddons $@
 }
 
 nuxeoctl() {
-  [ -d ./bin ] || return 1
-  BASE_PATH=./bin
-  NUXEOCTL=$BASE_PATH/nuxeoctl
-  NUXEOCONF=$BASE_PATH/nuxeo.conf
+  NUXEOCTL=./bin/nuxeoctl
 
-  chmod +x $NUXEOCTL
+  if [ ! -f $NUXEOCTL ]; then
+      echo "Not in a Nuxeo Server!"
+      return 1
+  fi
 
-  perl -p -i -e "s/^#?(org.nuxeo.dev=.*)$/\1/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(JAVA_OPTS=.*-Xdebug -Xrunjdwp.*)$/\1/g" $NUXEOCONF
-
-  perl -p -i -e "s,^#?(nuxeo.data.dir=).*$,\1/opt/nxdata,g" $NUXEOCONF
-
-  # PostgreSQL
-  perl -p -i -e "s/^#?(nuxeo.templates=((?!postgresql,|,postgresql|postgresql).)*)$/\1,postgresql/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(nuxeo.templates=((?!sdk,|,sdk|sdk).)*)$/\1,sdk/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(nuxeo.db.name=).*$/\1nuxeo/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(nuxeo.db.user=).*$/\1nuxeo/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(nuxeo.db.password=).*$/\1nuxeo/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(nuxeo.db.host=).*$/\1localhost/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(nuxeo.db.port=).*$/\1\ 5432/g" $NUXEOCONF
-
-  # Mail
-  #perl -p -i -e "s/^#?(mail.transport.host=).*$/\1localhost/g" bin/nuxeo.conf
-  perl -p -i -e "s/^#?(mail.transport.host=).*$/\1mail.in.nuxeo.com/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(mail.transport.port=).*$/\1\ 25/g" $NUXEOCONF
-  perl -p -i -e "s/^#?(mail.from=).*$/\1devnull\@nuxeo.com/g" $NUXEOCONF
-
-  # Wizard
-  perl -p -i -e "s/^#?(nuxeo.wizard.done=).*$/\1true/g" $NUXEOCONF
-
-  $NUXEOCTL  "$@"
-}
-
-nxconsole() {
-  nuxeoctl console | awk '
+  $NUXEOCTL "$@" | awk '
     /INFO/ { print "\033[34m" $0 "\033[0m" ;next}
     /WARN/ { print "\033[33m" $0 "\033[0m" ;next}
     /ERROR/ { print "\033[31m" $0 "\033[0m" ;next}
     1 {print}
   '
+}
+
+nxconsole() {
+  nuxeoctl console
 }
 
 nxstart() {
@@ -111,3 +87,116 @@ nxweb() {
 }
 
 alias nx='cd /opt/nuxeo'
+
+nuxeo-configure() {
+  NUXEO_CONF=./bin/nuxeo.conf
+
+  if [ ! -f $NUXEO_CONF ]; then
+      echo "Not in a Nuxeo Server!"
+      return 1
+  fi
+
+  if [ -z "$1" ]; then
+    echo 'Usage: nuxeo-configure mongo|postgres|h2|reset'
+    return 1
+  fi
+
+  NUXEOCTL=./bin/nuxeoctl
+  chmod +x $NUXEOCTL
+
+  if [ $1 == "reset" ]; then
+    sed -i '' '/### NUXEO CONFIGURE BEGIN/,/### NUXEO CONFIGURE END/d' $NUXEO_CONF
+    return
+  fi
+
+  if grep -q "NUXEO CONFIGURE BEGIN" "$NUXEO_CONF"; then
+    echo "Server already configured!"
+    return 1
+  fi
+
+  cat << EOF >> $NUXEO_CONF
+### NUXEO CONFIGURE BEGIN
+EOF
+
+  if [ $1 == "mongo" ]; then
+    cp $TEST_CLID_PATH /opt/nxdata/mongo/
+    cat << EOF >> $NUXEO_CONF
+nuxeo.data.dir=/opt/nxdata/mongo
+nuxeo.templates=default,mongodb
+EOF
+  elif [ $1 == "postgres" ]; then
+    cp $TEST_CLID_PATH /opt/nxdata/postgres/
+    cat << EOF >> $NUXEO_CONF
+nuxeo.data.dir=/opt/nxdata/postgres
+nuxeo.templates=default,postgresql
+EOF
+  elif [ $1 == "h2" ]; then
+    cp $TEST_CLID_PATH /opt/nxdata/h2/
+    cat << EOF >> $NUXEO_CONF
+nuxeo.data.dir=/opt/nxdata/h2
+nuxeo.templates=default
+EOF
+  else
+    echo 'Usage: nuxeo-configure mongo|postgres|h2|reset'
+    return 1
+  fi
+
+  cat << EOF >> $NUXEO_CONF
+nuxeo.redis.enabled=true
+nuxeo.redis.host=localhost
+EOF
+
+  cat << EOF >> $NUXEO_CONF
+#elasticsearch.client=RestClient
+elasticsearch.addressList=localhost:9300
+elasticsearch.clusterName=elasticsearch
+elasticsearch.indexName=nuxeo
+elasticsearch.indexNumberOfReplicas=0
+elasticsearch.httpReadOnly.baseUrl=http://localhost:9200/
+audit.elasticsearch.enabled=true
+audit.elasticsearch.indexName=audit
+seqgen.elasticsearch.indexName=uidgen
+EOF
+
+  cat << EOF >> $NUXEO_CONF
+mail.transport.host=mail.in.nuxeo.com
+mail.transport.port=25
+mail.from=devnull@nuxeo.com
+EOF
+
+  cat << EOF >> $NUXEO_CONF
+org.nuxeo.dev=true
+JAVA_OPTS=$JAVA_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
+nuxeo.wizard.done=true
+EOF
+
+    cat << EOF >> $NUXEO_CONF
+### NUXEO CONFIGURE END
+EOF
+
+}
+
+nuxeo-stack() {
+  nuxeo_stack_file=$HOME/.nuxeo-stack
+  if [ "$1" == "stop" ]; then
+    compose_options=$(<$nuxeo_stack_file)
+    eval "docker-compose $compose_options stop"
+    return
+  elif [ "$1" == "start" ]; then
+    compose_options="--file /opt/stack/docker-compose.yml"
+    if [ "$2" == "mongo" ]; then
+      compose_options="$compose_options --file /opt/stack/mongo/docker-compose.yml"
+    elif [ "$2" == "postgres" ]; then
+      compose_options="$compose_options --file /opt/stack/postgres/docker-compose.yml"
+    else
+      echo 'Launching default stack without any DB'
+    fi
+    eval "docker-compose $compose_options up -d"
+    echo $compose_options >! $nuxeo_stack_file
+    return
+  fi
+
+  echo 'Usage: nuxeo-stack start mongo|postgres'
+  echo '       nuxeo-stack stop'
+  return 1
+}

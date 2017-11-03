@@ -9,7 +9,6 @@ alias l='ls -ls'
 alias ll='ls -lsA'
 alias lla='ls -la'
 
-alias less='less --quiet'
 alias df='df -h'
 alias du='du -h'
 alias m='mutt -y'
@@ -24,3 +23,7 @@ alias psg="ps ax | grep -i"
 alias sb='subl'
 
 alias gradlew="./gradlew"
+
+alias less='less -RiX'
+
+alias code='code-insiders'

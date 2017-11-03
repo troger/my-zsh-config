@@ -2,8 +2,9 @@ zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}'
 zstyle ':completion:*' max-errors 3 numeric
 zstyle ':completion:*' use-compctl true
 
-autoload -Uz compinit
-compinit
+fpath=(~/.zsh/completions $fpath)
+
+autoload -Uz compinit && compinit
 
 unsetopt list_ambiguous
 setopt auto_remove_slash

@@ -27,3 +27,5 @@ alias gradlew="./gradlew"
 alias less='less -RiX'
 
 alias code='code-insiders'
+
+alias redis-start='redis-server /usr/local/etc/redis.conf'

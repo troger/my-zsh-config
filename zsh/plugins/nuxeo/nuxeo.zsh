@@ -173,8 +173,8 @@ EOF
     cat << EOF >> $NUXEO_CONF
 ### NUXEO CONFIGURE END
 EOF
-
 }
+alias nxconf=nuxeo-configure
 
 nuxeo-stack() {
   nuxeo_stack_file=$HOME/.nuxeo-stack
@@ -200,3 +200,4 @@ nuxeo-stack() {
   echo '       nuxeo-stack stop'
   return 1
 }
+alias nxstack=nuxeo-stack

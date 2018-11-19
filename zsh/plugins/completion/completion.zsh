@@ -11,3 +11,5 @@ setopt auto_remove_slash
 unsetopt glob_dots
 setopt chase_links
 
+# openshift cli completions
+#source <(oc completion zsh)
